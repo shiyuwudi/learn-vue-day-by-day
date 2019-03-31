@@ -12,7 +12,30 @@
             {{item}}
         </li>
     </ul>
+    <!--异步更新-->
+    <ul>
+        <li v-for="item in remoteProducts">
+            <!--v-model.number指定字段类型为数字，避免被当成字符串相加-->
+            <input type="number" v-model.number="item.quantity">
+            {{item.quantity}}
+            {{ item.name}}
+            <!--条件性渲染（v-if）-->
+            <span v-if="item.quantity === 0">
+                --没有库存--
+            </span>
+            <button @click="item.quantity += 1">
+                增加
+            </button>
+        </li>
+    </ul>
 
+    <!-- 总数量(计算型属性computed) -->
+    <h2>
+        总库存：{{ total }}
+    </h2>
+
+    <!--更新数组-->
+    <button onclick="deleteLastProduct()">删除最后一件商品</button>
 </div>
 
 <!--引入vue-->
@@ -21,17 +44,33 @@
 <!--脚本-->
 <script>
     const app = new Vue({
-        el: '#app',
-        data: {
-            product: '鞋',
-            products: [
-                '鞋',
-                '袜子',
-                '男士四角内裤'
-            ]
+      el: '#app',
+      data: {
+        product: '鞋',
+        products: [
+          '鞋',
+          '袜子',
+          '男士四角内裤'
+        ],
+        remoteProducts: [],
+      },
+      created() {
+        fetch('https://api.myjson.com/bins/1eryaq')
+          .then(response => response.json())
+          .then(json => {
+            this.remoteProducts = json.products;
+          });
+      },
+      computed: {
+        total() {
+          return this.remoteProducts.reduce((r, e) => r + e.quantity, 0);
         }
+      }
     });
     function checkSocks() {
         app.product = '袜子';
+    }
+    function deleteLastProduct() {
+      app.remoteProducts.pop();
     }
 </script>
