@@ -1,0 +1,37 @@
+<!--中文-->
+<meta charset="UTF-8">
+
+<!--模板-->
+<div id="app">
+    <!--Vue是响应式的（改变数据之后，模板中的数据会自动更新）-->
+    <h2>{{ product }}有库存</h2>
+    <button onclick="checkSocks()">查看袜子库存</button>
+    <!--列表(v-for)-->
+    <ul>
+        <li v-for="item in products">
+            {{item}}
+        </li>
+    </ul>
+
+</div>
+
+<!--引入vue-->
+<script src="https://unpkg.com/vue"></script>
+
+<!--脚本-->
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            product: '鞋',
+            products: [
+                '鞋',
+                '袜子',
+                '男士四角内裤'
+            ]
+        }
+    });
+    function checkSocks() {
+        app.product = '袜子';
+    }
+</script>
