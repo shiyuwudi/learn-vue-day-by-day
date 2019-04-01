@@ -1,0 +1,136 @@
+<!--中文-->
+<meta charset="UTF-8">
+<!--模板-->
+<h3>插值</h3>
+<h4>文本</h4>
+<div id="app-1">
+  <div>一直绑定 信息: {{ msg }}</div>
+  <div v-once>一次性绑定 信息: {{ msg }}</div>
+  <button @click="changeMsg">修改信息</button>
+</div>
+
+<h4>原始HTML</h4>
+<div id="app-2">
+  <p>Using mustaches: {{ rawHtml }}</p>
+  <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+</div>
+
+<h4>动态绑定html属性（比如id）</h4>
+<div id="app-3">
+  <div v-bind:id="dynamicId">
+    我的id是{{ dynamicId }}
+  </div>
+  <button @click="findRoot">查找id为root元素</button>
+  <br />
+  <button v-bind:disabled="isButtonDisabled">绑定我的disabled属性</button>
+  <button @click="toggleDisabled">启用/禁用左侧按钮</button>
+</div>
+
+<h4>js表达式</h4>
+<div id="app-4">
+  <p>{{ number + 1 }}</p>
+  <p>{{ ok ? 'YES' : 'NO' }}</p>
+  <p>{{ Math.pow(10, 2) }}</p>
+  <p>{{ new Date().toLocaleString() }}</p>
+
+  {{ message.split('').reverse().join('') }}
+
+  <div v-bind:id="'list-' + id"></div>
+</div>
+
+<h3>指令</h3>
+<h4>动态参数</h4>
+<div id="app-5">
+  <p>Vue的版本号为{{ version }}</p>
+  <p>2.6.0之后支持动态参数</p>
+  <a v-bind:[attributename]="url">点我</a>
+  <input type="text" v-model="attributename">
+</div>
+
+<h3>缩写</h3>
+<div id="app-6">
+  <!-- 完整语法 -->
+  <a v-bind:href="url">属性全写</a>
+
+  <!-- 缩写 -->
+  <a :href="url">属性缩写</a>
+
+  <!-- 完整语法 -->
+  <a v-on:click="doSomething">事件全写</a>
+
+  <!-- 缩写 -->
+  <a @click="doSomething">事件缩写</a>
+</div>
+<!--引入Vue-->
+<script src="https://unpkg.com/vue"></script>
+<!--自定义脚本-->
+<script>
+  const app1 = new Vue({
+    el: '#app-1',
+    data: {
+      msg: '你好Vue',
+    },
+    methods: {
+      changeMsg(){
+        this.msg = '再见React';
+      },
+    },
+  });
+  const app2 = new Vue({
+    el: '#app-2',
+    data: {
+      rawHtml: `<span style="color: red">小心被XSS攻击</span>`,
+    },
+  });
+  const app3 = new Vue({
+    el: '#app-3',
+    data: {
+      dynamicId: 'root',
+      isButtonDisabled: true,
+    },
+    methods: {
+      findRoot() {
+        alert(document.getElementById(this.dynamicId));
+      },
+      toggleDisabled() {
+        this.isButtonDisabled = !this.isButtonDisabled;
+      },
+    },
+  });
+  const app4 = new Vue({
+    el: '#app-4',
+    data: {
+      number: 0,
+      ok: false,
+      message: '你好，Vue',
+      id: 100,
+    },
+  });
+  const app5 = new Vue({
+    el: '#app-5',
+    data: {
+      url: 'https://www.baidu.com',
+      attributename: 'href',
+    },
+    computed: {
+      version() {
+        return Vue.version;
+      },
+    },
+  });
+  const app6 = new Vue({
+    el: '#app-6',
+    data: {
+      url: 'https://www.baidu.com',
+    },
+    methods: {
+      doSomething() {
+        alert('done');
+      },
+    },
+  });
+</script>
+<!--通用样式-->
+<link rel="stylesheet" href="../common/index.css">
+<!--自定义样式-->
+<style></style>

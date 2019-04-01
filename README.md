@@ -6,6 +6,7 @@
 1. [为什么选择Vue？](https://github.com/shiyuwudi/learn-vue-day-by-day/tree/master/Lesson1%20Why-Vue-js)
 1. [Vue介绍](https://github.com/shiyuwudi/learn-vue-day-by-day/tree/master/Lesson2%20Vue-Introduce)
 1. [Vue实例](https://github.com/shiyuwudi/learn-vue-day-by-day/tree/master/Lesson3%20Vue-Instance)
+1. [模板语法](https://github.com/shiyuwudi/learn-vue-day-by-day/tree/master/Lesson4%20Template)
 
 # 文件结构
 * 主页是index.html或者index.js/vue
