@@ -4,6 +4,7 @@
 每天一个文件夹，每天学一课。
 # 目录结构
 1. [为什么选择Vue？](https://github.com/shiyuwudi/learn-vue-day-by-day/tree/master/Lesson1%20Why-Vue-js)
+1. [Vue介绍](https://github.com/shiyuwudi/learn-vue-day-by-day/tree/master/Lesson2%20Vue-Introduce)
 
 # 文件结构
 * 主页是index.html或者index.js/vue
