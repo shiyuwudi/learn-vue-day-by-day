@@ -1,0 +1,147 @@
+<meta charset="UTF-8" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<div id="app-2">
+  <!--绑定（v-bind:）-->
+  <h3>声明式渲染</h3>
+  <span v-bind:title="message">
+    鼠标悬停几秒钟查看此处动态绑定的提示信息！
+  </span>
+  <h3>条件与循环</h3>
+</div>
+<div id="app-3">
+  <h4>条件</h4>
+  <p v-if="seen">现在你看到我了</p>
+  <button onclick="toggleSeen()">切换显示隐藏</button>
+</div>
+<div id="app-4">
+  <h4>循环</h4>
+  <ol>
+    <li v-for="todo in todos">
+      {{ todo.text }}
+    </li>
+  </ol>
+  <button onclick="newTodo()">添加新项目</button>
+</div>
+
+<h3>监听事件(v-on)</h3>
+<div id="app-5">
+  <p>{{ message }}</p>
+  <button v-on:click="reverseMessage">逆转消息</button>
+</div>
+
+<h3>表单绑定</h3>
+<div id="app-6">
+  <p>{{ message }}</p>
+  <input v-model="message">
+</div>
+
+<h3>组件化</h3>
+<h4>简单</h4>
+<div id="app-61">
+  <ol>
+    <!-- 创建一个 todo-item 组件的实例 -->
+    <todo-item></todo-item>
+    <todo-item></todo-item>
+    <todo-item></todo-item>
+    <todo-item></todo-item>
+  </ol>
+</div>
+<h4>传值</h4>
+<div id="app-7">
+  <ol>
+    <todo-item-smart
+      v-for="grocery in groceryList"
+      v-bind:todo="grocery"
+      v-bind:key="grocery.id"
+    ></todo-item-smart>
+  </ol>
+</div>
+
+<!--引入Vue-->
+<script src="https://unpkg.com/vue"></script>
+
+<!--自定义脚本-->
+<script>
+  var app2 = new Vue({
+    el: '#app-2',
+    data: {
+      message: '页面加载于 ' + new Date().toLocaleString()
+    }
+  });
+  var app3 = new Vue({
+    el: '#app-3',
+    data: {
+      seen: true
+    }
+  });
+  function toggleSeen() {
+    app3.seen = !app3.seen;
+  }
+  var app4 = new Vue({
+    el: '#app-4',
+    data: {
+      todos: [
+        { text: '学习 JavaScript' },
+        { text: '学习 Vue' },
+        { text: '整个牛项目' }
+      ]
+    }
+  });
+  let i = 1;
+  function newTodo() {
+    app4.todos.push({
+      text: '新项目' + (i ++),
+    });
+  }
+  var app5 = new Vue({
+    el: '#app-5',
+    data: {
+      message: 'Hello Vue.js!'
+    },
+    methods: {
+      reverseMessage: function () {
+        this.message = this.message.split('').reverse().join('')
+      }
+    }
+  });
+  var app6 = new Vue({
+    el: '#app-6',
+    data: {
+      message: 'Hello Vue!'
+    }
+  });
+  // 定义名为 t odo-item 的新组件
+  Vue.component('todo-item', {
+    template: '<li>这是个待办项</li>'
+  })
+  var app61 = new Vue({
+    el: '#app-61',
+  });
+  Vue.component('todo-item-smart', {
+    props: ['todo'],
+    template: '<li>{{ todo.text }}</li>'
+  })
+
+  var app7 = new Vue({
+    el: '#app-7',
+    data: {
+      groceryList: [
+        { id: 0, text: '蔬菜' },
+        { id: 1, text: '奶酪' },
+        { id: 2, text: '随便其它什么人吃的东西' }
+      ]
+    }
+  })
+</script>
+<style>
+  h3 {
+    border-bottom: 1px solid gray;
+    padding-bottom: 10px;
+    width: 300px;
+  }
+  h4 {
+    color: gray;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
+    width: 200px;
+  }
+</style>
