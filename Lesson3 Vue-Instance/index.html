@@ -1,0 +1,87 @@
+<!--中文-->
+<meta charset="UTF-8">
+<!--模板-->
+<h3>数据与方法</h3>
+<h4>冻结对象无法检测到更新</h4>
+<div id="app-1">
+  {{ foo }}
+  <button @click="updateFoo">点击更新(控制台会报错)</button>
+</div>
+<h4>生命周期</h4>
+<div id="app-2">
+  {{ foo }}
+  <br />
+  <button @click="updateFooOnce">点击更新(因为设置的内容相同，只更新一次DOM，只触发一次beforeUpdate和updated)</button>
+  <br />
+  <button @click="updateFooDynamic">点击更新(每次设置的内容都不同，可以更新多次DOM，会触发多次beforeUpdate和updated)</button>
+  <br />
+  <button @click="destroyVue">销毁Vue实例（之后Vue相关的方法不再可用）</button>
+</div>
+<!--引入Vue-->
+<script src="https://unpkg.com/vue"></script>
+<!--自定义脚本-->
+<script>
+  var obj = {
+    foo: 'bar',
+  };
+  Object.freeze(obj);
+  var app1 = new Vue({
+    el: '#app-1',
+    data: obj,
+    methods: {
+      updateFoo() {
+        console.log('updateFoo');
+        this.foo = 'baaaaaaaz';
+      },
+    },
+  });
+  let i = 1;
+  const app2 = new Vue({
+    el: '#app-2',
+    data: {
+      foo: 'bar',
+    },
+    methods: {
+      updateFooOnce() {
+        this.foo = 'baaaaaaaarz';
+      },
+      updateFooDynamic() {
+        this.foo = 'bar' + (i++);
+      },
+      destroyVue () {
+        this.$destroy();
+      },
+    },
+    beforeCreate(){
+      console.log(arguments.callee.name);
+    },
+    created(){
+      console.log(arguments.callee.name);
+    },
+    beforeMount(){
+      console.log(arguments.callee.name);
+    },
+    mounted(){
+      console.log(arguments.callee.name);
+    },
+    beforeUpdate(){
+      console.log(arguments.callee.name);
+    },
+    updated(){
+      console.log(arguments.callee.name);
+    },
+    beforeDestroy(){
+      console.log(arguments.callee.name);
+    },
+    destroyed(){
+      console.log(arguments.callee.name);
+    },
+  });
+</script>
+
+<!--通用样式-->
+<link rel="stylesheet" href="../common/index.css">
+<!--自定义样式-->
+<style>
+
+</style>

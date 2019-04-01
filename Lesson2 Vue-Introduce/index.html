@@ -73,25 +73,29 @@
       seen: true
     }
   });
+
   function toggleSeen() {
     app3.seen = !app3.seen;
   }
+
   var app4 = new Vue({
     el: '#app-4',
     data: {
       todos: [
-        { text: '学习 JavaScript' },
-        { text: '学习 Vue' },
-        { text: '整个牛项目' }
+        {text: '学习 JavaScript'},
+        {text: '学习 Vue'},
+        {text: '整个牛项目'}
       ]
     }
   });
   let i = 1;
+
   function newTodo() {
     app4.todos.push({
-      text: '新项目' + (i ++),
+      text: '新项目' + (i++),
     });
   }
+
   var app5 = new Vue({
     el: '#app-5',
     data: {
@@ -119,29 +123,17 @@
   Vue.component('todo-item-smart', {
     props: ['todo'],
     template: '<li>{{ todo.text }}</li>'
-  })
+  });
 
   var app7 = new Vue({
     el: '#app-7',
     data: {
       groceryList: [
-        { id: 0, text: '蔬菜' },
-        { id: 1, text: '奶酪' },
-        { id: 2, text: '随便其它什么人吃的东西' }
+        {id: 0, text: '蔬菜'},
+        {id: 1, text: '奶酪'},
+        {id: 2, text: '随便其它什么人吃的东西'}
       ]
     }
   })
 </script>
-<style>
-  h3 {
-    border-bottom: 1px solid gray;
-    padding-bottom: 10px;
-    width: 300px;
-  }
-  h4 {
-    color: gray;
-    border-bottom: 1px solid lightgray;
-    padding-bottom: 10px;
-    width: 200px;
-  }
-</style>
+<link rel="stylesheet" href="../common/index.css">
